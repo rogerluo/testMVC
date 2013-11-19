@@ -1,0 +1,140 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="courseMySQLModel.Store" Alias="Self" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.6" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="courseMySQLModelStoreContainer">
+          <EntitySet Name="course" EntityType="courseMySQLModel.Store.course" store:Type="Tables" Schema="course" />
+          <EntitySet Name="coursereview" EntityType="courseMySQLModel.Store.coursereview" store:Type="Tables" Schema="course" />
+          <AssociationSet Name="FK_COURSE_ID" Association="courseMySQLModel.Store.FK_COURSE_ID">
+            <End Role="course" EntitySet="course" />
+            <End Role="coursereview" EntitySet="coursereview" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="course">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="NAME" Type="varchar" Nullable="false" MaxLength="16" />
+          <Property Name="TEACHER" Type="varchar" Nullable="false" MaxLength="16" />
+        </EntityType>
+        <EntityType Name="coursereview">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="COURSEID" Type="int" Nullable="false" />
+          <Property Name="RATING" Type="int" Nullable="false" />
+          <Property Name="COMMNET" Type="varchar" MaxLength="256" />
+        </EntityType>
+        <Association Name="FK_COURSE_ID">
+          <End Role="course" Type="courseMySQLModel.Store.course" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="coursereview" Type="courseMySQLModel.Store.coursereview" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="course">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="coursereview">
+              <PropertyRef Name="COURSEID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="courseMySQLModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="courseMySQLEntities" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="courses" EntityType="courseMySQLModel.course" />
+          <EntitySet Name="coursereviews" EntityType="courseMySQLModel.coursereview" />
+          <AssociationSet Name="FK_COURSE_ID" Association="courseMySQLModel.FK_COURSE_ID">
+            <End Role="course" EntitySet="courses" />
+            <End Role="coursereview" EntitySet="coursereviews" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="course">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="NAME" Type="String" Nullable="false" MaxLength="16" Unicode="false" FixedLength="false" />
+          <Property Name="TEACHER" Type="String" Nullable="false" MaxLength="16" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="coursereviews" Relationship="courseMySQLModel.FK_COURSE_ID" FromRole="course" ToRole="coursereview" />
+        </EntityType>
+        <EntityType Name="coursereview">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="COURSEID" Type="Int32" Nullable="false" />
+          <Property Name="RATING" Type="Int32" Nullable="false" />
+          <Property Name="COMMNET" Type="String" MaxLength="256" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="course" Relationship="courseMySQLModel.FK_COURSE_ID" FromRole="coursereview" ToRole="course" />
+        </EntityType>
+        <Association Name="FK_COURSE_ID">
+          <End Role="course" Type="courseMySQLModel.course" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="coursereview" Type="courseMySQLModel.coursereview" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="course">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="coursereview">
+              <PropertyRef Name="COURSEID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="courseMySQLModelStoreContainer" CdmEntityContainer="courseMySQLEntities">
+          <EntitySetMapping Name="courses">
+            <EntityTypeMapping TypeName="courseMySQLModel.course">
+              <MappingFragment StoreEntitySet="course">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="TEACHER" ColumnName="TEACHER" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="coursereviews">
+            <EntityTypeMapping TypeName="courseMySQLModel.coursereview">
+              <MappingFragment StoreEntitySet="coursereview">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="COURSEID" ColumnName="COURSEID" />
+                <ScalarProperty Name="RATING" ColumnName="RATING" />
+                <ScalarProperty Name="COMMNET" ColumnName="COMMNET" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

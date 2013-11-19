@@ -1,0 +1,148 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{F6206F04-A2FB-4823-8BF9-AA6653F139EA}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>testEF</RootNamespace>
+    <AssemblyName>testEF</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DB\MSSQL\Course.cs">
+      <DependentUpon>courseMSSQLModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\MSSQL\courseMSSQLModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>courseMSSQLModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\MSSQL\courseMSSQLModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>courseMSSQLModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\MSSQL\courseMSSQLModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>courseMSSQLModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="DB\MSSQL\COURSEREVIEW.cs">
+      <DependentUpon>courseMSSQLModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\MySQL\course.cs">
+      <DependentUpon>CourseMySQLModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\MySQL\CourseMySQLModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CourseMySQLModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\MySQL\CourseMySQLModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CourseMySQLModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\MySQL\CourseMySQLModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CourseMySQLModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="DB\MySQL\coursereview.cs">
+      <DependentUpon>CourseMySQLModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+    <EntityDeploy Include="DB\MySQL\CourseMySQLModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>CourseMySQLModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <EntityDeploy Include="DB\MSSQL\courseMSSQLModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>courseMSSQLModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="DB\MSSQL\courseMSSQLModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>courseMSSQLModel.edmx</DependentUpon>
+      <LastGenOutput>courseMSSQLModel.Context.cs</LastGenOutput>
+    </None>
+    <None Include="DB\MSSQL\courseMSSQLModel.edmx.diagram">
+      <DependentUpon>courseMSSQLModel.edmx</DependentUpon>
+    </None>
+    <None Include="DB\MSSQL\courseMSSQLModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>courseMSSQLModel.edmx</DependentUpon>
+      <LastGenOutput>courseMSSQLModel.cs</LastGenOutput>
+    </None>
+    <None Include="DB\MySQL\CourseMySQLModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>CourseMySQLModel.edmx</DependentUpon>
+      <LastGenOutput>CourseMySQLModel.Context.cs</LastGenOutput>
+    </None>
+    <None Include="DB\MySQL\CourseMySQLModel.edmx.diagram">
+      <DependentUpon>CourseMySQLModel.edmx</DependentUpon>
+    </None>
+    <None Include="DB\MySQL\CourseMySQLModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>CourseMySQLModel.edmx</DependentUpon>
+      <LastGenOutput>CourseMySQLModel.cs</LastGenOutput>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

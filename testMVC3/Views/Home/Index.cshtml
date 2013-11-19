@@ -1,0 +1,37 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<h2>@ViewBag.username</h2>
+
+@using (Html.BeginForm("GetUsers", "Home", FormMethod.Post))
+{
+    <input type="button" id="getusers" name="getusers" value="ShowMe" />
+}
+<table id="userlist">
+    <thead>
+        <tr>
+            <th>Username</th>
+            <th>Age</th>
+            <th>Sex</th>
+        </tr>
+    </thead>
+    <tbody>
+    <!-- Nothing expect javascript write-->
+    </tbody>
+</table>
+
+<script type="text/javascript">
+    $(function () {
+        $("#getusers").click(function () {
+            
+        });
+    });
+    function ReceiveJsonResponse(result)
+    {
+        $("#userlist").html("");
+    }
+</script>

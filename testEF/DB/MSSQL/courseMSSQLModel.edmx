@@ -1,0 +1,140 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="courseMSSQLModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="courseMSSQLModelStoreContainer">
+          <EntitySet Name="Course" EntityType="courseMSSQLModel.Store.Course" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="COURSEREVIEW" EntityType="courseMSSQLModel.Store.COURSEREVIEW" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_COURSE_ID" Association="courseMSSQLModel.Store.FK_COURSE_ID">
+            <End Role="Course" EntitySet="Course" />
+            <End Role="COURSEREVIEW" EntitySet="COURSEREVIEW" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Course">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="NAME" Type="nvarchar" Nullable="false" MaxLength="16" />
+          <Property Name="TEACHER" Type="nvarchar" Nullable="false" MaxLength="16" />
+        </EntityType>
+        <EntityType Name="COURSEREVIEW">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="COURSEID" Type="int" Nullable="false" />
+          <Property Name="RATING" Type="int" Nullable="false" />
+          <Property Name="COMMNET" Type="nvarchar" MaxLength="256" />
+        </EntityType>
+        <Association Name="FK_COURSE_ID">
+          <End Role="Course" Type="courseMSSQLModel.Store.Course" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="COURSEREVIEW" Type="courseMSSQLModel.Store.COURSEREVIEW" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="COURSEREVIEW">
+              <PropertyRef Name="COURSEID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="courseMSSQLModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="courseMSSQLEntities" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="Courses" EntityType="courseMSSQLModel.Course" />
+          <EntitySet Name="COURSEREVIEWs" EntityType="courseMSSQLModel.COURSEREVIEW" />
+          <AssociationSet Name="FK_COURSE_ID" Association="courseMSSQLModel.FK_COURSE_ID">
+            <End Role="Course" EntitySet="Courses" />
+            <End Role="COURSEREVIEW" EntitySet="COURSEREVIEWs" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Course">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="NAME" Type="String" Nullable="false" MaxLength="16" Unicode="true" FixedLength="false" />
+          <Property Name="TEACHER" Type="String" Nullable="false" MaxLength="16" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="COURSEREVIEWs" Relationship="courseMSSQLModel.FK_COURSE_ID" FromRole="Course" ToRole="COURSEREVIEW" />
+        </EntityType>
+        <EntityType Name="COURSEREVIEW">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="COURSEID" Type="Int32" Nullable="false" />
+          <Property Name="RATING" Type="Int32" Nullable="false" />
+          <Property Name="COMMNET" Type="String" MaxLength="256" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Course" Relationship="courseMSSQLModel.FK_COURSE_ID" FromRole="COURSEREVIEW" ToRole="Course" />
+        </EntityType>
+        <Association Name="FK_COURSE_ID">
+          <End Role="Course" Type="courseMSSQLModel.Course" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="COURSEREVIEW" Type="courseMSSQLModel.COURSEREVIEW" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="COURSEREVIEW">
+              <PropertyRef Name="COURSEID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="courseMSSQLModelStoreContainer" CdmEntityContainer="courseMSSQLEntities">
+          <EntitySetMapping Name="Courses">
+            <EntityTypeMapping TypeName="courseMSSQLModel.Course">
+              <MappingFragment StoreEntitySet="Course">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="TEACHER" ColumnName="TEACHER" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="COURSEREVIEWs">
+            <EntityTypeMapping TypeName="courseMSSQLModel.COURSEREVIEW">
+              <MappingFragment StoreEntitySet="COURSEREVIEW">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="COURSEID" ColumnName="COURSEID" />
+                <ScalarProperty Name="RATING" ColumnName="RATING" />
+                <ScalarProperty Name="COMMNET" ColumnName="COMMNET" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
